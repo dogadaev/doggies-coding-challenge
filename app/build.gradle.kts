@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    kotlin("plugin.serialization").version(libs.versions.kotlin)
 }
 
 android {
@@ -60,6 +61,16 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+
+    implementation(libs.coroutines)
+    implementation(libs.dateTime)
+    implementation(libs.ktor)
+    implementation(libs.ktorSerializationJson)
+    implementation(libs.ktorLogging)
+    implementation(libs.serialization)
+    implementation(libs.koinAndroid)
+    implementation(libs.koinAndroidCompose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
