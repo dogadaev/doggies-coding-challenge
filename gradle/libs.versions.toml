@@ -40,6 +40,7 @@ dateTime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version
 serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 ktor = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktorSerializationJson = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktorContentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktorLogging = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor" }
 
 koinAndroid = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }

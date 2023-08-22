@@ -40,6 +40,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -66,6 +67,7 @@ dependencies {
     implementation(libs.dateTime)
     implementation(libs.ktor)
     implementation(libs.ktorSerializationJson)
+    implementation(libs.ktorContentNegotiation)
     implementation(libs.ktorLogging)
     implementation(libs.serialization)
     implementation(libs.koinAndroid)
