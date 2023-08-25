@@ -2,7 +2,7 @@ package org.dogadaev.simplesurance_dogs_collection.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.dogadaev.simplesurance_dogs_collection.data.repository.model.Breeds
+import org.dogadaev.simplesurance_dogs_collection.data.repository.model.Breed
 
 @Serializable
 data class ApiBreeds(
@@ -10,6 +10,8 @@ data class ApiBreeds(
     @SerialName("status") val status: String?,
 )
 
-fun ApiBreeds.mapToUi() = Breeds(
-    breeds = breeds.orEmpty()
-)
+fun ApiBreeds.mapToUi() = breeds
+    .orEmpty().keys
+    .map {
+        Breed(name = it)
+    }
