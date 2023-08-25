@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Breeds(
+data class ApiBreeds(
     @SerialName("message") val breeds: Map<String, Array<String>>?,
     @SerialName("status") val status: String?,
 )
