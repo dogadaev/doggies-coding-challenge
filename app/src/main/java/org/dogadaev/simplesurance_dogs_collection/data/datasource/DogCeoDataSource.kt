@@ -1,22 +1,13 @@
 package org.dogadaev.simplesurance_dogs_collection.data.datasource
 
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.plugins.expectSuccess
-import io.ktor.client.request.get
-import org.dogadaev.simplesurance_dogs_collection.data.model.BreedImages
-import org.dogadaev.simplesurance_dogs_collection.data.model.Breeds
+import org.dogadaev.simplesurance_dogs_collection.data.model.ApiBreedImage
+import org.dogadaev.simplesurance_dogs_collection.data.model.ApiBreeds
 
-class DogCeoDataSource(
-    private val client: HttpClient,
-    private val baseUrl: String,
-) {
+internal interface DogCeoDataSource {
 
-    suspend fun fetchAllBreeds(): Breeds =
-        client.get("${baseUrl}api/breeds/all") { expectSuccess = true }.body()
+    suspend fun fetchAllBreeds(): ApiBreeds
 
-    suspend fun fetchBreedImages(
+    suspend fun fetchBreedImage(
         breedName: String
-    ): BreedImages =
-        client.get("${baseUrl}api/breed/$breedName/images") { expectSuccess = true }.body()
+    ): ApiBreedImage
 }
