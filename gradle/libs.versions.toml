@@ -58,7 +58,7 @@ koinAndroidCompose = { group = "io.insert-koin", name = "koin-androidx-compose",
 
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
-room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 [plugins]

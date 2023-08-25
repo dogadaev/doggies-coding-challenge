@@ -12,6 +12,7 @@ import kotlin.time.Duration.Companion.minutes
 
 internal class BreedsRepositoryImpl(
     private val dogCeoDataSource: DogCeoDataSource,
+    private val breedsDao: BreedsDao,
 ) : BreedsRepository {
 
     private val breedsStore = StoreBuilder.from(
