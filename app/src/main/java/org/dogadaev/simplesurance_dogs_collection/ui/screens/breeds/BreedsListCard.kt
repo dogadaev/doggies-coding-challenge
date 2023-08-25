@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.Icon
@@ -24,10 +25,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.dogadaev.simplesurance_dogs_collection.data.repository.model.Breed
 
 @Composable
 fun BreedsListItem(
-    breedName: String,
+    breed: Breed,
     onFavoriteClick: () -> Unit,
     onCardClick: () -> Unit,
 ) {
@@ -39,6 +41,7 @@ fun BreedsListItem(
     ) {
 
         BreedsListFavoriteButton(
+            isFavorite = breed.isFavorite,
             shape = shape,
             onClick = onFavoriteClick
         )
@@ -49,7 +52,7 @@ fun BreedsListItem(
         )
 
         BreedsListCard(
-            breedName = breedName,
+            breedName = breed.name,
             shape = shape,
             onClick = onCardClick
         )
@@ -86,6 +89,7 @@ fun BreedsListCard(
 
 @Composable
 fun BreedsListFavoriteButton(
+    isFavorite: Boolean,
     shape: Shape,
     onClick: () -> Unit
 ) {
@@ -104,7 +108,8 @@ fun BreedsListFavoriteButton(
         Icon(
             modifier = Modifier
                 .padding(horizontal = 16.dp),
-            imageVector = Icons.Outlined.FavoriteBorder,
+            imageVector = if (isFavorite) Icons.Outlined.Favorite
+            else Icons.Outlined.FavoriteBorder,
             contentDescription = "",
         )
     }

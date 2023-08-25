@@ -6,10 +6,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.dogadaev.simplesurance_dogs_collection.presentation.viewmodel.BreedsViewModel
+import org.dogadaev.simplesurance_dogs_collection.presentation.viewmodel.AllBreedsViewModel
 import org.dogadaev.simplesurance_dogs_collection.presentation.viewmodel.FavoriteBreedsViewModel
 import org.dogadaev.simplesurance_dogs_collection.ui.screens.breeds.BreedsScreen
-import org.dogadaev.simplesurance_dogs_collection.ui.screens.favorites.FavoriteBreedsScreen
 import org.koin.androidx.compose.get
 
 @Composable
@@ -26,7 +25,7 @@ fun NavGraph(
         composable(
             route = Destinations.BreedsList
         ) {
-            val breedsListViewModel: BreedsViewModel = get()
+            val breedsListViewModel: AllBreedsViewModel = get()
 
             BreedsScreen(
                 viewModel = breedsListViewModel,
@@ -38,7 +37,7 @@ fun NavGraph(
         ) {
             val favoriteBreedsViewModel: FavoriteBreedsViewModel = get()
 
-            FavoriteBreedsScreen(
+            BreedsScreen(
                 viewModel = favoriteBreedsViewModel
             )
         }

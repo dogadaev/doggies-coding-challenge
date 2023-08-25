@@ -37,22 +37,19 @@ fun BreedsScreen(
                         horizontal = 16.dp, vertical = 8.dp
                     ),
                 ) {
-                    val breeds = data.breeds.keys.toList()
                     items(
-                        items = breeds,
-                    ) { breedName ->
+                        items = data,
+                    ) { breed ->
                         BreedsListItem(
-                            breedName = breedName,
+                            breed = breed,
                             onCardClick = {
                                 viewModel.click(
-                                    BreedsViewModel.Actions.OpenDetails(breedName)
+                                    BreedsViewModel.Actions.OpenDetails(breed)
                                 )
                             },
                             onFavoriteClick = {
                                 viewModel.click(
-                                    BreedsViewModel.Actions.AddToFavorite(
-                                        breedName
-                                    )
+                                    BreedsViewModel.Actions.AddToFavorite(breed)
                                 )
                             })
                     }
