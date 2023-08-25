@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
 import org.dogadaev.simplesurance_dogs_collection.data.repository.BreedsRepository
-import org.dogadaev.simplesurance_dogs_collection.presentation.ext.mapToUi
+import org.dogadaev.simplesurance_dogs_collection.presentation.ext.toUiState
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class BreedDetailsViewModel(
@@ -29,7 +29,7 @@ class BreedDetailsViewModel(
                 fresh = it
             )
         }
-        .mapToUi()
+        .toUiState()
         .distinctUntilChanged()
 
     fun reload() {

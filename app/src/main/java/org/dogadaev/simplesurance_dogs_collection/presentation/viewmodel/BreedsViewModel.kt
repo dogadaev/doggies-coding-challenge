@@ -1,6 +1,7 @@
 package org.dogadaev.simplesurance_dogs_collection.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -9,12 +10,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import org.dogadaev.simplesurance_dogs_collection.data.repository.BreedsRepository
-import org.dogadaev.simplesurance_dogs_collection.presentation.ext.mapToUi
+import org.dogadaev.simplesurance_dogs_collection.data.repository.model.Breed
+import org.dogadaev.simplesurance_dogs_collection.presentation.ext.toUiState
+import org.dogadaev.simplesurance_dogs_collection.presentation.usecase.AllBreedsUseCase
+import org.dogadaev.simplesurance_dogs_collection.presentation.usecase.BreedsUseCase
+import org.dogadaev.simplesurance_dogs_collection.presentation.usecase.FavoriteBreedsUseCase
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class BreedsViewModel(
-    breedsRepository: BreedsRepository
+sealed class BreedsViewModel(
+    private val breedsUseCase: BreedsUseCase,
 ) : ViewModel() {
 
     private val refresh = MutableSharedFlow<Boolean>(
@@ -25,12 +31,10 @@ class BreedsViewModel(
     val state = refresh
         .onStart { emit(false) }
         .flatMapLatest {
-            breedsRepository
-                .getBreeds(true)
+            breedsUseCase
+                .getBreeds(it)
         }
-        .mapToUi()
         .distinctUntilChanged()
-
 
     private val _navigation = MutableStateFlow<String?>(null)
 
@@ -39,11 +43,17 @@ class BreedsViewModel(
     fun click(action: Actions) {
         when (action) {
             is Actions.AddToFavorite -> {
-                // todo
+                viewModelScope.launch {
+                    breedsUseCase.updateFavoriteState(
+                        action.breed.copy(
+                            isFavorite = action.breed.isFavorite.not()
+                        )
+                    )
+                }
             }
 
             is Actions.OpenDetails -> {
-                _navigation.value = action.breedName
+                _navigation.value = action.breed.name
             }
 
             Actions.CloseDetails -> _navigation.value = null
@@ -55,8 +65,16 @@ class BreedsViewModel(
     }
 
     sealed class Actions {
-        data class OpenDetails(val breedName: String) : Actions()
-        data class AddToFavorite(val breedName: String) : Actions()
+        data class OpenDetails(val breed: Breed) : Actions()
+        data class AddToFavorite(val breed: Breed) : Actions()
         object CloseDetails : Actions()
     }
 }
+
+class AllBreedsViewModel(
+    useCase: AllBreedsUseCase
+) : BreedsViewModel(useCase)
+
+class FavoriteBreedsViewModel(
+    useCase: FavoriteBreedsUseCase
+) : BreedsViewModel(useCase)

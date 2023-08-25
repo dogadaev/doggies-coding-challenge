@@ -7,7 +7,16 @@ import org.dogadaev.simplesurance_dogs_collection.presentation.UiState
 import org.mobilenativefoundation.store.store5.StoreReadResponse
 
 @OptIn(ExperimentalCoroutinesApi::class)
-fun <T> Flow<StoreReadResponse<T>>.mapToUi() = mapLatest { it.toUiState() }
+fun <T, R> Flow<UiState<T>>.mapSuccess(transform: suspend (T?) -> R) = mapLatest { state ->
+    when (state) {
+        is UiState.Data -> UiState.Data(transform(state.data))
+        is UiState.Error -> state.copy()
+        is UiState.Loading -> state
+    }
+}
+
+@OptIn(ExperimentalCoroutinesApi::class)
+fun <T> Flow<StoreReadResponse<T>>.toUiState() = mapLatest { it.toUiState() }
 
 private fun <T> StoreReadResponse<T>.toUiState(): UiState<T> = when (this) {
     is StoreReadResponse.NoNewData,
