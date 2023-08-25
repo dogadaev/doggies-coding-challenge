@@ -77,6 +77,9 @@ dependencies {
     implementation(libs.atomicfu)
     implementation(libs.coil)
 
+    implementation(libs.room)
+    ksp(libs.roomCompiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
