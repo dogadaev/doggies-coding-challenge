@@ -4,14 +4,14 @@ import android.app.Application
 import org.dogadaev.simplesurance_dogs_collection.data.DataGraph
 import org.dogadaev.simplesurance_dogs_collection.presentation.PresentationGraph
 import org.dogadaev.simplesurance_dogs_collection.ui.UiGraph
-import org.koin.dsl.koinApplication
+import org.koin.core.context.startKoin
 
 class BreedsApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
-        koinApplication {
+        startKoin {
             modules(
                 AppGraph.module,
                 DataGraph.module,
