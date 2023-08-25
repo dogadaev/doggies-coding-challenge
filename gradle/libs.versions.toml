@@ -13,6 +13,10 @@ serialization = "1.5.1"
 coroutines = "1.7.2"
 dateTime = "0.4.0"
 koin = "3.2.0"
+store = "5.0.0-beta03"
+atomicfu = "0.18.5"
+navigation = "2.7.0"
+coil = "2.4.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -24,6 +28,7 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
@@ -43,8 +48,13 @@ ktorSerializationJson = { group = "io.ktor", name = "ktor-serialization-kotlinx-
 ktorContentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktorLogging = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor" }
 
+atomicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version.ref = "atomicfu" }
+store = { group = "org.mobilenativefoundation.store", name = "store5", version.ref = "store" }
+
 koinAndroid = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koinAndroidCompose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
