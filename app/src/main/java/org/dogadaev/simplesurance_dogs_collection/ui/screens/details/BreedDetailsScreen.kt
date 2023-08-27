@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
@@ -38,11 +39,12 @@ fun BreedDetailScreen(
     viewModel: BreedDetailsViewModel,
     close: () -> Unit,
 ) {
+val bottomSheetState = rememberModalBottomSheetState()
+    
     ModalBottomSheet(
+        sheetState = bottomSheetState,
         onDismissRequest = close,
     ) {
-        val state = viewModel.state.collectAsState(initial = UiState.Loading)
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -62,7 +64,7 @@ fun BreedDetailScreen(
                     .height(24.dp)
             )
 
-            when (val uiState = state.value) {
+            when (val uiState = viewModel.state.collectAsState(initial = UiState.Loading).value) {
                 is UiState.Data -> {
                     val context = LocalContext.current
                     val imageLoader = remember {
@@ -109,7 +111,10 @@ fun BreedDetailScreen(
     }
 }
 
-private fun buildImageRequest(imageUrl: String?, context: Context) = ImageRequest.Builder(context)
+private fun buildImageRequest(
+    imageUrl: String?,
+    context: Context
+) = ImageRequest.Builder(context)
     .data(imageUrl)
     .crossfade(true)
     .fallback(R.drawable.ic_launcher_foreground)

@@ -1,12 +1,8 @@
 package org.dogadaev.simplesurance_dogs_collection.ui.screens.breeds
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,37 +22,38 @@ import org.koin.core.parameter.parametersOf
 fun BreedsScreen(
     viewModel: BreedsViewModel,
 ) {
-    val state = viewModel.state.collectAsState(initial = UiState.Loading)
-
-    when (val uiState = state.value) {
+    when (val uiState = viewModel.state.collectAsState(initial = UiState.Loading).value) {
         is UiState.Data -> {
-            uiState.data?.let { data ->
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(
-                        horizontal = 16.dp, vertical = 8.dp
-                    ),
-                ) {
-                    items(
-                        items = data,
-                    ) { breed ->
-                        BreedsListItem(
-                            breed = breed,
-                            onCardClick = {
-                                viewModel.click(
-                                    BreedsViewModel.Actions.OpenDetails(breed)
-                                )
-                            },
-                            onFavoriteClick = {
-                                viewModel.click(
-                                    BreedsViewModel.Actions.AddToFavorite(breed)
-                                )
-                            })
-                    }
-                }
+            uiState.data?.let { items ->
+                BreedsList(
+                    items = items,
+                    onCardClick = {
+                        viewModel.click(
+                            BreedsViewModel.Actions.OpenDetails(it)
+                        )
+                    },
+                    onFavoriteClick = {
+                        viewModel.click(
+                            BreedsViewModel.Actions.AddToFavorite(it)
+                        )
+                    },
+                )
             } ?: run {
                 Text(
                     text = "Empty ;(",
+                )
+            }
+
+            val selectedBreed = viewModel.selectedBreed.collectAsState().value
+
+            if (selectedBreed != null) {
+                BreedDetailScreen(
+                    viewModel = get<BreedDetailsViewModel> {
+                        parametersOf(selectedBreed)
+                    },
+                    close = {
+                        viewModel.click(BreedsViewModel.Actions.CloseDetails)
+                    }
                 )
             }
         }
@@ -83,17 +80,5 @@ fun BreedsScreen(
                 CircularProgressIndicator()
             }
         }
-    }
-    val selectedBreed = viewModel.selectedBreed.collectAsState()
-
-    if (selectedBreed.value != null) {
-        BreedDetailScreen(
-            viewModel = get<BreedDetailsViewModel> {
-                parametersOf(selectedBreed.value)
-            },
-            close = {
-                viewModel.click(BreedsViewModel.Actions.CloseDetails)
-            }
-        )
     }
 }

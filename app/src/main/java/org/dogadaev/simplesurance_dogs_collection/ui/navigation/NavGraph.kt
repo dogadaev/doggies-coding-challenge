@@ -25,20 +25,16 @@ fun NavGraph(
         composable(
             route = Destinations.BreedsList
         ) {
-            val breedsListViewModel: AllBreedsViewModel = koinViewModel()
-
             BreedsScreen(
-                viewModel = breedsListViewModel,
+                viewModel = koinViewModel<AllBreedsViewModel>(),
             )
         }
 
         composable(
             route = Destinations.Favorites
         ) {
-            val favoriteBreedsViewModel: FavoriteBreedsViewModel = koinViewModel()
-
             BreedsScreen(
-                viewModel = favoriteBreedsViewModel
+                viewModel = koinViewModel<FavoriteBreedsViewModel>(),
             )
         }
     }
