@@ -1,7 +1,6 @@
 package org.dogadaev.simplesurance_dogs_collection.ui.screens.details
 
 import android.content.Context
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +14,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
@@ -39,16 +37,12 @@ fun BreedDetailScreen(
     viewModel: BreedDetailsViewModel,
     close: () -> Unit,
 ) {
-val bottomSheetState = rememberModalBottomSheetState()
-    
     ModalBottomSheet(
-        sheetState = bottomSheetState,
         onDismissRequest = close,
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .focusable(false),
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -61,7 +55,7 @@ val bottomSheetState = rememberModalBottomSheetState()
 
             Spacer(
                 modifier = Modifier
-                    .height(24.dp)
+                    .height(8.dp)
             )
 
             when (val uiState = viewModel.state.collectAsState(initial = UiState.Loading).value) {
@@ -77,7 +71,7 @@ val bottomSheetState = rememberModalBottomSheetState()
                     AsyncImage(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
+                            .padding(16.dp)
                             .clip(RoundedCornerShape(16.dp)),
                         model = imageLoader,
                         contentDescription = null
