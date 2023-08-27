@@ -1,6 +1,5 @@
 package org.dogadaev.simplesurance_dogs_collection.ui.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

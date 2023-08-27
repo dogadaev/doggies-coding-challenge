@@ -4,7 +4,6 @@ import org.dogadaev.simplesurance_dogs_collection.presentation.usecase.AllBreeds
 import org.dogadaev.simplesurance_dogs_collection.presentation.usecase.FavoriteBreedsUseCase
 import org.dogadaev.simplesurance_dogs_collection.presentation.viewmodel.AllBreedsViewModel
 import org.dogadaev.simplesurance_dogs_collection.presentation.viewmodel.BreedDetailsViewModel
-import org.dogadaev.simplesurance_dogs_collection.presentation.viewmodel.BreedsViewModel
 import org.dogadaev.simplesurance_dogs_collection.presentation.viewmodel.FavoriteBreedsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

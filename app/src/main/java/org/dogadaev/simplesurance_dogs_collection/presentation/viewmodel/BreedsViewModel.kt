@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import org.dogadaev.simplesurance_dogs_collection.data.repository.BreedsRepository
 import org.dogadaev.simplesurance_dogs_collection.data.repository.model.Breed
-import org.dogadaev.simplesurance_dogs_collection.presentation.ext.toUiState
 import org.dogadaev.simplesurance_dogs_collection.presentation.usecase.AllBreedsUseCase
 import org.dogadaev.simplesurance_dogs_collection.presentation.usecase.BreedsUseCase
 import org.dogadaev.simplesurance_dogs_collection.presentation.usecase.FavoriteBreedsUseCase

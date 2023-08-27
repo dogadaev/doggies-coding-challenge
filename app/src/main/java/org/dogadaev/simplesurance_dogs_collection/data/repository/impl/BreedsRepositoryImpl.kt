@@ -7,6 +7,7 @@ import org.dogadaev.simplesurance_dogs_collection.data.db.model.DbBreed
 import org.dogadaev.simplesurance_dogs_collection.data.db.model.mapToUi
 import org.dogadaev.simplesurance_dogs_collection.data.db.model.mapTpDb
 import org.dogadaev.simplesurance_dogs_collection.data.model.ApiBreeds
+import org.dogadaev.simplesurance_dogs_collection.data.model.mapToDb
 import org.dogadaev.simplesurance_dogs_collection.data.model.mapToUi
 import org.dogadaev.simplesurance_dogs_collection.data.repository.BreedsRepository
 import org.dogadaev.simplesurance_dogs_collection.data.repository.model.Breed
@@ -57,11 +58,9 @@ internal class BreedsRepositoryImpl(
                     it.map { model -> model.mapTpDb() }
                 }
                 .fromNetworkToLocal {
-                    it.breeds?.map { entry ->
-                        DbBreed(name = entry.key)
-                    }
-                        ?.sortedBy { item -> item.name }
-                        .orEmpty()
+                    it
+                        .mapToDb()
+                        .sortedBy { item -> item.name }
                 }
                 .build()
         )
